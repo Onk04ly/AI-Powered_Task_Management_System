@@ -1,0 +1,20 @@
+# Installed & pinned
+pandas==3.0.3
+numpy==2.4.4
+matplotlib==3.10.9
+seaborn==0.13.2
+datasets==4.8.5
+huggingface-hub==1.15.0
+
+# Not yet installed — pin after running: pip install <package>
+scikit-learn
+xgboost
+nltk
+spacy
+gensim
+transformers
+torch
+tensorflow
+streamlit
+joblib
+kaggle
