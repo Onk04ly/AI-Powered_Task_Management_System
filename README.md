@@ -248,6 +248,35 @@ Run the notebooks **in order** — each depends on outputs from the previous one
 
 ---
 
+## Feature Extraction Findings
+
+After running both TF-IDF (notebook 05) and Word2Vec (notebook 06), TF-IDF was selected as the primary feature representation for downstream classification. The decision is based on empirical results from our dataset, not a general preference.
+
+### Word2Vec PCA result
+
+The PCA projection of the 100-dimensional Word2Vec document embeddings explains only **23.9% of total variance** (PC1 = 13.2%, PC2 = 10.7%). This means 76.1% of the information is invisible in the 2D plot — the embeddings did not separate task categories in a way the model could reliably exploit.
+
+### Why Word2Vec underperformed on this dataset
+
+**Factor 1 — Corpus too small for reliable embedding training.**
+Word2Vec needs millions of word-context pairs to learn rich semantic relationships. Our corpus has ~154,000 total training words across 8,077 sentences of ~19 words each. At this scale the model does not see enough varied contexts to reliably separate concepts.
+
+**Factor 2 — Mixed similarity quality confirms the finding.**
+
+| Probe | Top 5 similar words | Assessment |
+|---|---|---|
+| `refund` | payment, installation, delivery, cancellation, seller | Partial — payment and cancellation make sense |
+| `account` | password, username, login, regain, log | Excellent — all authentication concepts correctly grouped |
+| `software` | useful, change, fix, make, internationally | Meaningless — no semantic coherence |
+
+The `software` result is the clearest signal: a well-trained model would return words like *update*, *install*, *device*, *error*. Instead it returns generic verbs and an unrelated adverb. This is not a bug in the implementation — it is a genuine finding about the dataset. Word2Vec requires either a much larger corpus or less templated text to learn reliable embeddings. Our customer support tickets are template-generated and short, which limits the variety of word-context pairs available during training.
+
+### Why TF-IDF works here
+
+TF-IDF does not learn from co-occurrence; it simply measures how distinctive a word is within a document relative to the whole corpus. That property is well-suited to short, templated text where keyword presence is more informative than semantic context. TF-IDF is therefore used as the primary feature representation for the classification and priority prediction notebooks.
+
+---
+
 ## Tech Stack
 
 | Layer | Library |
