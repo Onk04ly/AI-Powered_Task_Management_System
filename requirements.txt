@@ -9,11 +9,11 @@ scikit-learn==1.8.0
 nltk==3.9.4
 joblib==1.5.3
 scipy==1.17.1
+gensim==4.4.0
 
 # Not yet installed — pin after running: pip install <package>
 xgboost
 spacy
-gensim
 transformers
 torch
 tensorflow
