@@ -23,7 +23,7 @@ An end-to-end machine learning system that automatically classifies tasks by typ
 
 | Capability | Approach |
 |---|---|
-| Auto-classify tasks by type | TF-IDF → Word2Vec → BERT |
+| Auto-classify tasks by type | TF-IDF (primary) → Word2Vec (evaluated) |
 | Predict task priority | Random Forest / XGBoost |
 | Balance team workload | Heuristic + ML |
 
